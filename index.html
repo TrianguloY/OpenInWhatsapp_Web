@@ -58,7 +58,7 @@
 	</br>
 	
 	<p>
-	Made by TrianguloY. (V 1.1)</br>
+	Made by TrianguloY. (V 1.2)</br>
 	The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
 	(Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look, nothing more!)
 	</p>
@@ -89,7 +89,21 @@ function openApp(){
 }
 
 function share(){
-	prompt("Link:","wa.me/"+getNumber())
+	var title = "Link:";
+	var url = "wa.me/"+getNumber();
+
+	if (navigator.share) {
+		navigator.share({
+			title: title,
+			text: 'Apps from trianguloY',
+			url: url,
+		})
+		.then(() => console.log('Successful share'))
+		.catch((error) => console.log('Error sharing', error));
+	}else{
+		// TODO: copy to clipboard?
+		prompt(title,url);
+	}
 }
 
 // ---------- secondary actions ----------
