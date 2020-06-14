@@ -89,19 +89,17 @@ function openApp(){
 }
 
 function share(){
-	var title = "Click to chat link:";
 	var url = "wa.me/"+getNumber();
 
 	if (navigator.share) {
 		navigator.share({
-			title: title,
 			text: url,
 		})
 		.then(() => console.log('Successful share'))
 		.catch((error) => console.log('Error sharing', error));
 	}else{
 		// TODO: copy to clipboard?
-		prompt("Link:",url);
+		prompt("Click to chat link:",url);
 	}
 }
 
