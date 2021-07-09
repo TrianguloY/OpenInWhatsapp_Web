@@ -26,51 +26,73 @@
 .border {
 	margin-top: 5px;
 }
+
+.box {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+.header {
+	flex: 0 1 auto;
+}
+.filler {
+	flex: 1 1 auto;
+}
+.footer {
+	flex: 0 1 40px;
+}
+
 </style>
 
 
 <body class="center">
-<div class="mycard mdl-card mdl-shadow--2dp"><center><div class="mdl-card__supporting-text">
-  
-	<h2>Click to chat</h2>
-  
-    <p>
-	From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.</br>
-	No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization).</br>
-	Will probably update it if enough interest (or you can suggest changes, GitHub link below).
-	</p>
-	
-	<span>+</span>
-	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:5em">
-		<input class="mdl-textfield__input" type="number" id="prefix" oninput="savePrefix()">
-		<label class="mdl-textfield__label" for="prefix">Prefix</label>
+<div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
+	<div class="header">
+		<h2>Click to chat</h2>
+	  
+		<p>
+		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.</br>
+		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization).</br>
+		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
+		</p>
+		
+		<span>+</span>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:5em">
+			<input class="mdl-textfield__input" type="number" id="prefix" oninput="savePrefix()">
+			<label class="mdl-textfield__label" for="prefix">Prefix</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:12em">
+			<input class="mdl-textfield__input" type="number" id="number" oninput="updateStatus()">
+			<label class="mdl-textfield__label" for="number">Number</label>
+		</div>
+		
+		</br>
+		
+		<button id="openWeb" onclick="openWeb()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (WhatsApp Web)</button>
+		<button id="openApp" onclick="openApp()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (App)</button>
+		<button id="share" onclick="share()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored border">Share</button>
+		
 	</div>
-	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:12em">
-		<input class="mdl-textfield__input" type="number" id="number" oninput="updateStatus()">
-		<label class="mdl-textfield__label" for="number">Number</label>
+	<div class="filler">
+		</br>
+		</br>
+	</div>
+	<div class="footer">
+
+		<p>
+		Made by TrianguloY. (V 1.4)</br>
+		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
+		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
+		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
+		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.</br>
+		- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative, but you can opt out from the circle at the bottom left (if it is not shown you probably have an adblocker so you are not using it).<br>
+		<br>
+		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
+		</p>
+	
 	</div>
 	
-	</br>
-	
-	<button id="openWeb" onclick="openWeb()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (WhatsApp Web)</button>
-	<button id="openApp" onclick="openApp()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (App)</button>
-	<button id="share" onclick="share()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored border">Share</button>
-	
-	</br>
-	</br>
-	
-	<p>
-	Made by TrianguloY. (V 1.4)</br>
-	The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
-	- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
-	- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
-	- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.</br>
-	- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative, but you can opt out from the circle at the bottom left (if it is not shown you probably have an adblocker so you are not using it).<br>
-	<br>
-	If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
-	</p>
-	
-</div></center></div>
+</center></div>
 </body>
 
 <script>
