@@ -127,14 +127,18 @@ function share(){
 	var url = "wa.me/"+getNumber();
 
 	if (navigator.share) {
+		// can share
 		navigator.share({
 			text: url,
 		})
 		.then(() => console.log('Successful share'))
 		.catch((error) => console.log('Error sharing', error));
+	}else if(copyToClipboard(url)){
+		// can copy
+		alert("Url '"+url+"' copied to clipboard");
 	}else{
-		// TODO: copy to clipboard?
-		prompt("Click to chat link:",url);
+		// manual input
+		prompt("Click to chat link:", url);
 	}
 }
 
@@ -163,6 +167,16 @@ function openLink(url){
 
 function getNumber(){
 	return EL_PREF.value + EL_NUMB.value.replace(/^0+/, '')
+}
+
+function copyToClipboard(text){
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = text;
+	inputc.focus();
+	inputc.select();
+	var result = document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
+	return result;
 }
 
 // ---------- initialization ----------
