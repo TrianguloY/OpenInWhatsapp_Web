@@ -87,7 +87,7 @@
 	<div class="footer">
 
 		<p>
-		Made by TrianguloY. (V 1.4). This page is not affiliated with WhatsApp Inc.</br>
+		Made by TrianguloY. (V 1.4.1). This page is not affiliated with WhatsApp Inc.</br>
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
 		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
@@ -106,13 +106,13 @@
 
 // ---------- variables ----------
 
-var KEY_PREF = "prefix";
+let KEY_PREF = "prefix";
 
-var EL_PREF = document.getElementById('prefix');
-var EL_NUMB = document.getElementById('number');
-var EL_OPWEB = document.getElementById('openWeb');
-var EL_OPAPP = document.getElementById('openApp');
-var EL_SHARE = document.getElementById('share');
+let EL_PREF = document.getElementById('prefix');
+let EL_NUMB = document.getElementById('number');
+let EL_OPWEB = document.getElementById('openWeb');
+let EL_OPAPP = document.getElementById('openApp');
+let EL_SHARE = document.getElementById('share');
 
 // ---------- main actions ----------
 
@@ -125,12 +125,14 @@ function openApp(){
 }
 
 function share(){
-	var url = "wa.me/"+getNumber();
+	let url = "wa.me/"+getNumber();
 
 	if (navigator.share) {
 		// can share
 		navigator.share({
+			title: url,
 			text: url,
+			//url: url,
 		})
 		.then(() => console.log('Successful share'))
 		.catch((error) => console.log('Error sharing', error));
@@ -139,14 +141,14 @@ function share(){
 		alert("Url '"+url+"' copied to clipboard");
 	}else{
 		// manual input
-		prompt("Click to chat link:", url);
+		prompt("Click to chat link: (Ctrl+C to copy)", url);
 	}
 }
 
 // ---------- secondary actions ----------
 
 function updateStatus(){
-	var disabled = EL_NUMB.value.replace(/^0+/, '') == "";
+	let disabled = EL_NUMB.value.replace(/^0+/, '') == "";
 	EL_OPAPP.disabled = disabled;
 	EL_OPWEB.disabled = disabled;
 	EL_SHARE.disabled = disabled;
@@ -171,11 +173,11 @@ function getNumber(){
 }
 
 function copyToClipboard(text){
-	var inputc = document.body.appendChild(document.createElement("input"));
+	let inputc = document.body.appendChild(document.createElement("input"));
 	inputc.value = text;
 	inputc.focus();
 	inputc.select();
-	var result = document.execCommand('copy');
+	let result = document.execCommand('copy');
 	inputc.parentNode.removeChild(inputc);
 	return result;
 }
