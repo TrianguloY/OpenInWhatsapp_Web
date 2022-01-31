@@ -104,17 +104,7 @@
 
 <script>
 
-// ---------- variables ----------
-
-let KEY_PREF = "prefix";
-
-let EL_PREF = document.getElementById('prefix');
-let EL_NUMB = document.getElementById('number');
-let EL_OPWEB = document.getElementById('openWeb');
-let EL_OPAPP = document.getElementById('openApp');
-let EL_SHARE = document.getElementById('share');
-
-// ---------- main actions ----------
+// ---------- buttons ----------
 
 function openWeb(){
 	openLink("https://web.whatsapp.com/send?phone="+getNumber())
@@ -145,31 +135,10 @@ function share(){
 	}
 }
 
-// ---------- secondary actions ----------
-
-function updateStatus(){
-	let disabled = EL_NUMB.value.replace(/^0+/, '') == "";
-	EL_OPAPP.disabled = disabled;
-	EL_OPWEB.disabled = disabled;
-	EL_SHARE.disabled = disabled;
-}
-
-function savePrefix(){
-	localStorage.setItem(KEY_PREF, EL_PREF.value);
-}
-
-function restorePrefix(){
-	EL_PREF.value = localStorage.getItem(KEY_PREF);
-}
-
 // ---------- utils ----------
 
 function openLink(url){
 	window.open(url)
-}
-
-function getNumber(){
-	return EL_PREF.value + EL_NUMB.value.replace(/^0+/, '')
 }
 
 function copyToClipboard(text){
@@ -180,6 +149,38 @@ function copyToClipboard(text){
 	let result = document.execCommand('copy');
 	inputc.parentNode.removeChild(inputc);
 	return result;
+}
+
+// ---------- input ----------
+
+let EL_PREF = document.getElementById('prefix');
+let EL_NUMB = document.getElementById('number');
+
+let EL_OPWEB = document.getElementById('openWeb');
+let EL_OPAPP = document.getElementById('openApp');
+let EL_SHARE = document.getElementById('share');
+
+function getNumber(){
+	return EL_PREF.value + EL_NUMB.value.replace(/^0+/, '')
+}
+
+function updateStatus(){
+	let disabled = EL_NUMB.value.replace(/^0+/, '') == "";
+	EL_OPAPP.disabled = disabled;
+	EL_OPWEB.disabled = disabled;
+	EL_SHARE.disabled = disabled;
+}
+
+// ---------- localStorage ----------
+
+let KEY_PREF = "prefix";
+
+function savePrefix(){
+	localStorage.setItem(KEY_PREF, EL_PREF.value);
+}
+
+function restorePrefix(){
+	EL_PREF.value = localStorage.getItem(KEY_PREF);
 }
 
 // ---------- initialization ----------
