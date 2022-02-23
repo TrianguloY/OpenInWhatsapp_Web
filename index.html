@@ -139,7 +139,7 @@ function share(){
 		navigator.share({
 			title: url,
 			text: url,
-			url: url,
+			url: "https://" + url,
 		})
 		.then(() => console.log('Successful share'))
 		.catch((error) => console.log('Error sharing', error))
