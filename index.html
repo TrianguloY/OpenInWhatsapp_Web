@@ -63,7 +63,7 @@
 
 		</p>
 
-		<select id="prefixes" class="mdl-textfield__input" style="width:auto" onchange="changeCountry()" hidden>
+		<select id="countries" class="mdl-textfield__input" style="width:auto" onchange="changeCountry()" hidden>
 			<option value="" disabled>List of prefixes</option>
 			<optgroup label="Sorted By Prefix"></optgroup>
 			<optgroup label="Sorted By Country"></optgroup>
@@ -112,17 +112,24 @@
 
 // ---------- buttons ----------
 
+// 'open web' button
 function openWeb(){
+	// opens the web version
 	openLink("https://web.whatsapp.com/send?phone="+getNumber())
 }
 
+// 'open app' button
 function openApp(){
+	// opens the app version
 	openLink("https://wa.me/"+getNumber())
 }
 
+// 'share' button
 function share(){
+	// shares the wa.me number
 	let url = "wa.me/"+getNumber()
 
+	// test
 	if (navigator.share) {
 		// can share
 		navigator.share({
@@ -141,12 +148,12 @@ function share(){
 	}
 }
 
-// ---------- utils ----------
-
+// opens a link in a new tab
 function openLink(url){
 	window.open(url)
 }
 
+// copies the text to the clipboard
 function copyToClipboard(text){
 	let inputc = document.body.appendChild(document.createElement("input"))
 	inputc.value = text
@@ -166,21 +173,26 @@ let EL_OPWEB = document.getElementById('openWeb')
 let EL_OPAPP = document.getElementById('openApp')
 let EL_SHARE = document.getElementById('share')
 
-function getNumber(prefixOnly=false){
+// returns the current input number
+function getNumber(prefixOnly = false){
 	return EL_PREF.value + (prefixOnly ? '' : EL_NUMB.value.replace(/^0+/, ''))
 }
 
+// sets a new number (pref and/or number)
 function setNumber(prefix=undefined,number=undefined){
-	if(prefix!=undefined) {
+	if(prefix != undefined) {
+		// set prexix
 		EL_PREF.value = prefix
 		EL_PREF.dispatchEvent(new Event('input'))
 	}
-	if(number!=undefined) {
+	if(number != undefined) {
+		// set number
 		EL_NUMB.value = number
 		EL_NUMB.dispatchEvent(new Event('input'))
 	}
 }
 
+// updates the buttons availability
 function updateStatus(){
 	let disabled = EL_NUMB.value.replace(/^0+/, '') == ""
 	EL_OPAPP.disabled = disabled
@@ -190,70 +202,76 @@ function updateStatus(){
 
 // ---------- country ----------
 
-let EL_PREFIXES = document.getElementById('prefixes')
+let EL_COUNTRIES = document.getElementById('countries')
 let COUNTRY_URL = "https://raw.githubusercontent.com/TrianguloY/OpenInWhatsapp_Translation/master/res/raw/countries_{}.txt"
 let prefs = []
 let maxPref = 0
 
+// loads the countries
 function loadCountries(){
 	Promise.all([
 		fetch(COUNTRY_URL.replace("{}","ext")).then(e => e.text()),
 		fetch(COUNTRY_URL.replace("{}","name")).then(e => e.text()),
 	]).then(data => {
 
+		// parse the data
 		let extsData = data[0].split('\n')
 		let namesData = data[1].split('\n')
 		if (namesData.length != extsData.length) throw "Invalid length"
 
-		let values = []
-
-		Array.from({
+		let values = Array.from({
 			length: namesData.length
 		}, (_, i) => i)
-		.forEach(i =>{
+		.flatMap(i =>{
 			let exts = extsData[i].split(';')
 			let names = namesData[i].split(';')
 
-			exts.forEach(ext => {
-				names.forEach(name => {
-					values.push([ext,name])
-				})
-			})
+			return exts.flatMap(ext => 
+				names.map(name => 
+					[ext,name]
+				)
+			)
 		})
 
+		// populate options
 		group(values).sort().forEach(([ext, names]) => {
 			let prefVal = ext.replaceAll(' ','')
-			EL_PREFIXES.children[1].appendChild(new Option('+'+ext+': '+names.join(', '), prefVal))
+			EL_COUNTRIES.children[1].appendChild(new Option('+'+ext+': '+names.join(', '), prefVal))
+			
 			prefs.push(prefVal)
+			maxPref = Math.max(maxPref, prefVal.length)
 		})
 		group(values.map(a=>a.reverse())).sort().forEach(([name, exts]) => {
-			EL_PREFIXES.children[2].appendChild(new Option(name+' (+'+exts.join(', ')+')', exts[0].replaceAll(' ','')))
+			EL_COUNTRIES.children[2].appendChild(new Option(name+' (+'+exts.join(', ')+')', exts[0].replaceAll(' ','')))
 		})
 
-		maxPref = Math.max(...prefs.map(a => a.length))
-
+		// init
 		detectCountry()
-
-		EL_PREFIXES.hidden = false
+		EL_COUNTRIES.hidden = false
 
 	}).catch(console.error)
 }
 
+// detects and sets the current country from the input prefix
 function detectCountry(){
 	if(maxPref == 0) return
 
+	// iterate until find
 	let number = getNumber().substring(0,maxPref)
 	while(number.length>0){
 		if(prefs.indexOf(number) != -1) break
 		number = number.substring(0,number.length-1)
 	}
-	EL_PREFIXES.value = number
+	EL_COUNTRIES.value = number
 }
 
+// changes the prefix from the selected option
 function changeCountry(){
-	setNumber(prefix=EL_PREFIXES.value)
+	setNumber(prefix=EL_COUNTRIES.value)
 }
 
+// utility to group an array of pairs from the first group
+// [ [1,2], [1,3], [4,5] ] -> [ [1,[2,3]], [4,[5]] ]
 function group(data){
 	return Object.entries(data.reduce((group, [a, b]) => {
 			if(!(a in group)) group[a] = [];
@@ -266,10 +284,12 @@ function group(data){
 
 let KEY_PREF = "prefix"
 
+// saves the input prefix into storage
 function savePrefix(){
 	localStorage.setItem(KEY_PREF, getNumber(prefixOnly=true))
 }
 
+// loads the input prefix from storage
 function restorePrefix(){
 	setNumber(prefix=localStorage.getItem(KEY_PREF))
 }
