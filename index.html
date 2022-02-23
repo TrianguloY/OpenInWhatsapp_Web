@@ -41,6 +41,10 @@
 .footer {
 	flex: 0 1 40px;
 }
+.autoWidth {
+	width: auto;
+	max-width: 100%;
+}
 
 </style>
 
@@ -63,7 +67,7 @@
 
 		</p>
 
-		<select id="countries" class="mdl-textfield__input" style="width:auto" onchange="changeCountry()" hidden>
+		<select id="countries" class="mdl-textfield__input autoWidth" onchange="changeCountry()" hidden>
 			<option value="" disabled>List of prefixes</option>
 			<optgroup label="Sorted By Prefix"></optgroup>
 			<optgroup label="Sorted By Country"></optgroup>
