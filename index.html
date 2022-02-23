@@ -5,9 +5,9 @@
 <link rel="icon" href="favicon.ico">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-indigo.min.css" /> 
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-	
+
 <script async src="https://arc.io/widget.js#JnX5qiNK"></script>
 <script data-goatcounter="https://trianguloy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
@@ -49,36 +49,42 @@
 <div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
 	<div class="header">
 		<h2>Click to chat</h2>
-	  
+
 		<p>
 		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.</br>
 		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization).</br>
 		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
-		
+
 		</br>
 		</br>
 		This web uses WhatsApp public API to open a chat with any number you enter (you and that number).</br>
-		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9. More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.</br>
+		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9. You can also choose from the list (may not be loaded). More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.</br>
 		Example: for +44 (UK) 123 456 7890 write 44 1234567890
-		
+
 		</p>
-		
+
+		<select id="prefixes" class="mdl-textfield__input" style="width:auto" onchange="changeCountry()" hidden>
+			<option value="" disabled>List of prefixes</option>
+			<optgroup label="Sorted By Prefix"></optgroup>
+			<optgroup label="Sorted By Country"></optgroup>
+		</select>
+
 		<span>+</span>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:5em">
-			<input class="mdl-textfield__input" type="number" id="prefix" oninput="savePrefix()">
+			<input class="mdl-textfield__input" type="number" id="prefix" oninput="savePrefix();detectCountry()">
 			<label class="mdl-textfield__label" for="prefix">Prefix</label>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:12em">
-			<input class="mdl-textfield__input" type="number" id="number" oninput="updateStatus()">
+			<input class="mdl-textfield__input" type="number" id="number" oninput="updateStatus();detectCountry()">
 			<label class="mdl-textfield__label" for="number">Number</label>
 		</div>
-		
+
 		</br>
-		
+
 		<button id="openWeb" onclick="openWeb()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (WhatsApp Web)</button>
 		<button id="openApp" onclick="openApp()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (App)</button>
 		<button id="share" onclick="share()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored border">Share link</button>
-		
+
 	</div>
 	<div class="filler">
 		</br>
@@ -87,7 +93,7 @@
 	<div class="footer">
 
 		<p>
-		Made by TrianguloY. (V 1.4.1). This page is not affiliated with WhatsApp Inc.</br>
+		Made by TrianguloY. (V 1.5). This page is not affiliated with WhatsApp Inc.</br>
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
 		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
@@ -96,9 +102,9 @@
 		<br>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
 		</p>
-	
+
 	</div>
-	
+
 </center></div>
 </body>
 
@@ -115,23 +121,23 @@ function openApp(){
 }
 
 function share(){
-	let url = "wa.me/"+getNumber();
+	let url = "wa.me/"+getNumber()
 
 	if (navigator.share) {
 		// can share
 		navigator.share({
 			title: url,
 			text: url,
-			//url: url,
+			url: url,
 		})
 		.then(() => console.log('Successful share'))
-		.catch((error) => console.log('Error sharing', error));
+		.catch((error) => console.log('Error sharing', error))
 	}else if(copyToClipboard(url)){
 		// can copy
-		alert("Url '"+url+"' copied to clipboard");
+		alert("Url '"+url+"' copied to clipboard")
 	}else{
 		// manual input
-		prompt("Click to chat link: (Ctrl+C to copy)", url);
+		prompt("Click to chat link: (Ctrl+C to copy)", url)
 	}
 }
 
@@ -142,50 +148,139 @@ function openLink(url){
 }
 
 function copyToClipboard(text){
-	let inputc = document.body.appendChild(document.createElement("input"));
-	inputc.value = text;
-	inputc.focus();
-	inputc.select();
-	let result = document.execCommand('copy');
-	inputc.parentNode.removeChild(inputc);
-	return result;
+	let inputc = document.body.appendChild(document.createElement("input"))
+	inputc.value = text
+	inputc.focus()
+	inputc.select()
+	let result = document.execCommand('copy')
+	inputc.parentNode.removeChild(inputc)
+	return result
 }
 
 // ---------- input ----------
 
-let EL_PREF = document.getElementById('prefix');
-let EL_NUMB = document.getElementById('number');
+let EL_PREF = document.getElementById('prefix')
+let EL_NUMB = document.getElementById('number')
 
-let EL_OPWEB = document.getElementById('openWeb');
-let EL_OPAPP = document.getElementById('openApp');
-let EL_SHARE = document.getElementById('share');
+let EL_OPWEB = document.getElementById('openWeb')
+let EL_OPAPP = document.getElementById('openApp')
+let EL_SHARE = document.getElementById('share')
 
-function getNumber(){
-	return EL_PREF.value + EL_NUMB.value.replace(/^0+/, '')
+function getNumber(prefixOnly=false){
+	return EL_PREF.value + (prefixOnly ? '' : EL_NUMB.value.replace(/^0+/, ''))
+}
+
+function setNumber(prefix=undefined,number=undefined){
+	if(prefix!=undefined) {
+		EL_PREF.value = prefix
+		EL_PREF.dispatchEvent(new Event('input'))
+	}
+	if(number!=undefined) {
+		EL_NUMB.value = number
+		EL_NUMB.dispatchEvent(new Event('input'))
+	}
 }
 
 function updateStatus(){
-	let disabled = EL_NUMB.value.replace(/^0+/, '') == "";
-	EL_OPAPP.disabled = disabled;
-	EL_OPWEB.disabled = disabled;
-	EL_SHARE.disabled = disabled;
+	let disabled = EL_NUMB.value.replace(/^0+/, '') == ""
+	EL_OPAPP.disabled = disabled
+	EL_OPWEB.disabled = disabled
+	EL_SHARE.disabled = disabled
+}
+
+// ---------- country ----------
+
+let EL_PREFIXES = document.getElementById('prefixes')
+let COUNTRY_URL = "https://raw.githubusercontent.com/TrianguloY/OpenInWhatsapp_Translation/master/res/raw/countries_{}.txt"
+let prefs = []
+let maxPref = 0
+
+function loadCountries(){
+	Promise.all([
+		fetch(COUNTRY_URL.replace("{}","ext")).then(e => e.text()),
+		fetch(COUNTRY_URL.replace("{}","name")).then(e => e.text()),
+	]).then(data => {
+
+		let extsData = data[0].split('\n')
+		let namesData = data[1].split('\n')
+		if (namesData.length != extsData.length) throw "Invalid length"
+
+		let values = []
+
+		Array.from({
+			length: namesData.length
+		}, (_, i) => i)
+		.forEach(i =>{
+			let exts = extsData[i].split(';')
+			let names = namesData[i].split(';')
+
+			exts.forEach(ext => {
+				names.forEach(name => {
+					values.push([ext,name])
+				})
+			})
+		})
+
+		group(values).sort().forEach(([ext, names]) => {
+			let prefVal = ext.replaceAll(' ','')
+			EL_PREFIXES.children[1].appendChild(new Option('+'+ext+': '+names.join(', '), prefVal))
+			prefs.push(prefVal)
+		})
+		group(values.map(a=>a.reverse())).sort().forEach(([name, exts]) => {
+			EL_PREFIXES.children[2].appendChild(new Option(name+' (+'+exts.join(', ')+')', exts[0].replaceAll(' ','')))
+		})
+
+		maxPref = Math.max(...prefs.map(a => a.length))
+
+		detectCountry()
+
+		EL_PREFIXES.hidden = false
+
+	}).catch(console.error)
+}
+
+function detectCountry(){
+	if(maxPref == 0) return
+
+	let number = getNumber().substring(0,maxPref)
+	while(number.length>0){
+		if(prefs.indexOf(number) != -1) break
+		number = number.substring(0,number.length-1)
+	}
+	EL_PREFIXES.value = number
+}
+
+function changeCountry(){
+	setNumber(prefix=EL_PREFIXES.value)
+}
+
+function group(data){
+	return Object.entries(data.reduce((group, [a, b]) => {
+			if(!(a in group)) group[a] = [];
+			group[a].push(b);
+			return group;
+		}, {}));
 }
 
 // ---------- localStorage ----------
 
-let KEY_PREF = "prefix";
+let KEY_PREF = "prefix"
 
 function savePrefix(){
-	localStorage.setItem(KEY_PREF, EL_PREF.value);
+	localStorage.setItem(KEY_PREF, getNumber(prefixOnly=true))
 }
 
 function restorePrefix(){
-	EL_PREF.value = localStorage.getItem(KEY_PREF);
+	setNumber(prefix=localStorage.getItem(KEY_PREF))
 }
 
 // ---------- initialization ----------
 
-window.onload = function(){restorePrefix();updateStatus()};
+window.onload = function(){
+	restorePrefix()
+	updateStatus()
+	loadCountries()
+}
 
 </script>
 
