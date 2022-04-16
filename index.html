@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-<!--<script async src="https://arc.io/widget.js#JnX5qiNK"></script>-->
 <script data-goatcounter="https://trianguloy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <style>
@@ -56,13 +55,13 @@
 
 		<p>
 		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.</br>
-		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<!--, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization-->).</br>
+		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).</br>
 		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
 
 		</br>
 		</br>
 		This web uses WhatsApp public API to open a chat with any number you enter (you and that number).</br>
-		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9. You can also choose from the list (may not be loaded). More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.</br>
+		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.</br>
 		Example: for +44 (UK) 123 456 7890 write 44 1234567890
 
 		</p>
@@ -97,14 +96,15 @@
 	<div class="footer">
 
 		<p>
-		Made by TrianguloY. (V 1.5). This page is not affiliated with WhatsApp Inc.</br>
+		Made by TrianguloY. (V 1.6). This page is not affiliated with WhatsApp Inc.</br>
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
 		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
 		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.</br>
-		<!--- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative, but you can opt out from the circle at the bottom left (if it is not shown you probably have an adblocker so you are not using it).<br>-->
+		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO()" href="#">here</a> to disable.<br></span>
 		<br>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
+		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO()" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
 		</p>
 
 	</div>
@@ -113,6 +113,8 @@
 </body>
 
 <script>
+
+function eId(id){ return document.getElementById(id) }
 
 // ---------- buttons ----------
 
@@ -170,12 +172,8 @@ function copyToClipboard(text){
 
 // ---------- input ----------
 
-let EL_PREF = document.getElementById('prefix')
-let EL_NUMB = document.getElementById('number')
-
-let EL_OPWEB = document.getElementById('openWeb')
-let EL_OPAPP = document.getElementById('openApp')
-let EL_SHARE = document.getElementById('share')
+let EL_PREF = eId('prefix')
+let EL_NUMB = eId('number')
 
 // returns the current input number
 function getNumber(prefixOnly = false){
@@ -199,14 +197,14 @@ function setNumber(prefix=undefined,number=undefined){
 // updates the buttons availability
 function updateStatus(){
 	let disabled = EL_NUMB.value.replace(/^0+/, '') == ""
-	EL_OPAPP.disabled = disabled
-	EL_OPWEB.disabled = disabled
-	EL_SHARE.disabled = disabled
+	eId('openApp').disabled = disabled
+	eId('openWeb').disabled = disabled
+	eId('share').disabled = disabled
 }
 
 // ---------- country ----------
 
-let EL_COUNTRIES = document.getElementById('countries')
+let EL_COUNTRIES = eId('countries')
 let COUNTRY_URL = "https://raw.githubusercontent.com/TrianguloY/OpenInWhatsapp_Translation/master/res/raw/countries_{}.txt"
 let prefs = []
 let maxPref = 0
@@ -230,8 +228,8 @@ function loadCountries(){
 			let exts = extsData[i].split(';')
 			let names = namesData[i].split(';')
 
-			return exts.flatMap(ext => 
-				names.map(name => 
+			return exts.flatMap(ext =>
+				names.map(name =>
 					[ext,name]
 				)
 			)
@@ -241,7 +239,7 @@ function loadCountries(){
 		group(values).sort().forEach(([ext, names]) => {
 			let prefVal = ext.replaceAll(' ','')
 			EL_COUNTRIES.children[1].appendChild(new Option('+'+ext+': '+names.join(', '), prefVal))
-			
+
 			prefs.push(prefVal)
 			maxPref = Math.max(maxPref, prefVal.length)
 		})
@@ -252,6 +250,7 @@ function loadCountries(){
 		// init
 		detectCountry()
 		EL_COUNTRIES.hidden = false
+		eId("countriesTxt").hidden = false;
 
 	}).catch(console.error)
 }
@@ -298,12 +297,52 @@ function restorePrefix(){
 	setNumber(prefix=localStorage.getItem(KEY_PREF))
 }
 
+// ---------- arcio ----------
+
+let KEY_ARCIO = "arcio"
+
+// true if arcio is enabled
+function isArcIO(){
+	let saved = localStorage.getItem(KEY_ARCIO)
+	return saved !== null ? saved == "true" : false
+}
+
+// inits the arcio related data
+function loadArcIO(){
+
+	// toggle texts visibility
+	eId('arcioEnabled').hidden = !isArcIO();
+	eId('arcioTxt').hidden = !isArcIO();
+	eId('arcioDisabled').hidden = isArcIO();
+
+	// enable script if required
+	if(!isArcIO()) return;
+	let arcio = document.createElement('script')
+	arcio.setAttribute('src','https://arc.io/widget.js#JnX5qiNK')
+	arcio.setAttribute('aync',true)
+	document.head.appendChild(arcio)
+}
+
+// toggles the arcio availability
+// then reloads the page
+function toggleArcIO(){
+	// set
+	localStorage.setItem(KEY_ARCIO,!isArcIO())
+
+	// reload (false, aka don't fetch again, because the page didn't change)
+	window.location.reload(false)
+
+	// return false to disable <a> links
+	return false
+}
+
 // ---------- initialization ----------
 
 window.onload = function(){
 	restorePrefix()
 	updateStatus()
 	loadCountries()
+	loadArcIO()
 }
 
 </script>
