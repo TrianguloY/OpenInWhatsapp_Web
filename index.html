@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
+<head>
+
 <title>Click to chat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <link rel="icon" href="favicon.ico">
 
@@ -46,7 +49,7 @@
 }
 
 </style>
-
+</head>
 
 <body class="center">
 <div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
@@ -54,14 +57,14 @@
 		<h2>Click to chat</h2>
 
 		<p>
-		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.</br>
-		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).</br>
+		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
+		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
 		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
 
-		</br>
-		</br>
-		This web uses WhatsApp public API to open a chat with any number you enter (you and that number).</br>
-		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.</br>
+		<br>
+		<br>
+		This web uses WhatsApp public API to open a chat with any number you enter (you and that number).<br>
+		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.<br>
 		Example: for +44 (UK) 123 456 7890 write 44 1234567890
 
 		</p>
@@ -82,7 +85,7 @@
 			<label class="mdl-textfield__label" for="number">Number</label>
 		</div>
 
-		</br>
+		<br>
 
 		<button id="openWeb" onclick="openWeb()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (WhatsApp Web)</button>
 		<button id="openApp" onclick="openApp()" class="border mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Open (App)</button>
@@ -90,17 +93,17 @@
 
 	</div>
 	<div class="filler">
-		</br>
-		</br>
+		<br>
+		<br>
 	</div>
 	<div class="footer">
 
 		<p>
-		Made by TrianguloY. (V 1.6). This page is not affiliated with WhatsApp Inc.</br>
-		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.</br>
-		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.</br>
-		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.</br>
-		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.</br>
+		Made by TrianguloY. (V 1.6). This page is not affiliated with WhatsApp Inc.<br>
+		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.<br>
+		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.<br>
+		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>
+		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.<br>
 		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO()" href="#">here</a> to disable.<br></span>
 		<br>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
@@ -110,7 +113,6 @@
 	</div>
 
 </center></div>
-</body>
 
 <script>
 
@@ -347,4 +349,5 @@ window.onload = function(){
 
 </script>
 
+</body>
 </html>
