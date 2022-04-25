@@ -306,7 +306,7 @@ let KEY_ARCIO = "arcio"
 // true if arcio is enabled
 function isArcIO(){
 	let saved = localStorage.getItem(KEY_ARCIO)
-	return saved !== null ? saved == "true" : false
+	return saved !== null ? saved == "true" : true
 }
 
 // inits the arcio related data
