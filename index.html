@@ -99,7 +99,10 @@
 	<div class="footer">
 
 		<p>
+		
+		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
 		Made by TrianguloY. (V 1.6). This page is not affiliated with WhatsApp Inc.<br>
+		
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.<br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.<br>
 		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>
@@ -116,7 +119,7 @@
 
 <script>
 
-function eId(id){ return document.getElementById(id) }
+function eId(id){ return document.getElementById(id) || document.createElement('div') }
 
 // ---------- buttons ----------
 
@@ -341,10 +344,10 @@ function toggleArcIO(){
 // ---------- initialization ----------
 
 window.onload = function(){
-	restorePrefix()
-	updateStatus()
-	loadCountries()
-	loadArcIO()
+	try{ restorePrefix() }catch(e){console.log(e)}
+	try{ updateStatus()  }catch(e){console.log(e)}
+	try{ loadCountries() }catch(e){console.log(e)}
+	try{ loadArcIO()     }catch(e){console.log(e)}
 }
 
 </script>
