@@ -14,6 +14,9 @@
 <script data-goatcounter="https://trianguloy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <style>
+h2 {
+	color: rgb(144, 182, 73);
+}
 .mycard {
 	margin-top: 50px;
 	width: 90%;
@@ -33,16 +36,9 @@
 	display: flex;
 	flex-flow: column;
 	height: 100%;
+	justify-content: space-between;
 }
-.header {
-	flex: 0 1 auto;
-}
-.filler {
-	flex: 1 1 auto;
-}
-.footer {
-	flex: 0 1 40px;
-}
+
 .autoWidth {
 	width: auto;
 	max-width: 100%;
@@ -53,7 +49,7 @@
 
 <body class="center">
 <div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
-	<div class="header">
+	<div>
 		<h2>Click to chat</h2>
 
 		<p>
@@ -92,25 +88,29 @@
 		<button id="share" onclick="share()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored border">Share link</button>
 
 	</div>
-	<div class="filler">
+	<div>
+	
 		<br>
 		<br>
+		<p>
+		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
+		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO()" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
+		</p>
+		<br>
+		
 	</div>
-	<div class="footer">
+	<div>
 
 		<p>
 		
 		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
-		Made by TrianguloY. (V 1.6). This page is not affiliated with WhatsApp Inc.<br>
+		Made by TrianguloY. (V 1.6.1). This page is not affiliated with WhatsApp Inc.<br>
 		
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.<br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.<br>
 		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>
 		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.<br>
 		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO()" href="#">here</a> to disable.<br></span>
-		<br>
-		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
-		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO()" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
 		</p>
 
 	</div>
