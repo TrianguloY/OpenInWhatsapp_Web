@@ -57,7 +57,7 @@ summary {
 <body class="center">
 <div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
 	<div>
-		<details id="details" ontoggle="changeSetting('hideText', this.open)">
+		<details id="details" ontoggle="changeSetting('hideText', this.open)" open>
 			<summary><h2>Click to chat</h2></summary>
 
 			<p>
@@ -110,7 +110,7 @@ summary {
 
 		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
 		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.7</a>). This page is not affiliated with WhatsApp Inc.<br>
-		<pre id="changelog" hidden>
+		<pre id="changelog" style="white-space: pre-wrap;" hidden>
 Changelog:
 
 V 1.7
@@ -392,13 +392,13 @@ function toggleArcIO(){
 
 // ---------- initialization ----------
 
-window.onload = function(){
-	try{ restorePrefix() }catch(e){console.log(e)}
-	try{ updateStatus()  }catch(e){console.log(e)}
-	try{ loadCountries() }catch(e){console.log(e)}
-	try{ loadArcIO()     }catch(e){console.log(e)}
-	try{ loadSettings()  }catch(e){console.log(e)}
-}
+//window.onload = function(){
+try{ restorePrefix() }catch(e){console.log(e)}
+try{ updateStatus()  }catch(e){console.log(e)}
+try{ loadCountries() }catch(e){console.log(e)}
+try{ loadArcIO()     }catch(e){console.log(e)}
+try{ loadSettings()  }catch(e){console.log(e)}
+//}
 
 </script>
 
