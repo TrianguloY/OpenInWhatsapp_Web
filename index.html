@@ -16,7 +16,13 @@
 <style>
 h2 {
 	color: rgb(144, 182, 73);
+	display: inline-block;
+	vertical-align: middle;
 }
+summary {
+	cursor:pointer;
+}
+
 .mycard {
 	margin-top: 50px;
 	width: 90%;
@@ -37,6 +43,7 @@ h2 {
 	flex-flow: column;
 	height: 100%;
 	justify-content: space-between;
+	gap: 50px;
 }
 
 .autoWidth {
@@ -50,20 +57,21 @@ h2 {
 <body class="center">
 <div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
 	<div>
-		<h2>Click to chat</h2>
+		<details id="details" ontoggle="changeSetting('hideText', this.open)">
+			<summary><h2>Click to chat</h2></summary>
 
-		<p>
-		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
-		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
-		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
+			<p>
+			From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
+			No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
+			Will probably update it if enough interest (or you can suggest changes, GitHub link below).
 
-		<br>
-		<br>
-		This web uses WhatsApp public API to open a chat with any number you enter (you and that number).<br>
-		Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.<br>
-		Example: for +44 (UK) 123 456 7890 write 44 1234567890
-
-		</p>
+			<br>
+			<br>
+			This web uses WhatsApp public API to open a chat with any number you enter (you and that number).<br>
+			Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.<br>
+			Example: for +44 (UK) 123 456 7890 write 44 1234567890
+			</p>
+		</details>
 
 		<select id="countries" class="mdl-textfield__input autoWidth" onchange="changeCountry()" hidden>
 			<option value="" disabled>List of prefixes</option>
@@ -90,27 +98,32 @@ h2 {
 	</div>
 	<div>
 	
-		<br>
-		<br>
 		<p>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
-		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO()" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
+		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO(); return false;" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
 		</p>
-		<br>
 		
 	</div>
 	<div>
 
 		<p>
-		
+
 		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
-		Made by TrianguloY. (V 1.6.1). This page is not affiliated with WhatsApp Inc.<br>
+		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.7</a>). This page is not affiliated with WhatsApp Inc.<br>
+		<pre id="changelog" hidden>
+Changelog:
+
+V 1.7
+- Press the title to toggle the main text.
+- Press the version to show the changelog.
+- Option to clear localStorage.
+		</pre>
 		
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.<br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.<br>
-		- The prefix is kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>
+		- The prefix and toggled-title are kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>Press <a href="#" onclick="clearLocalStorage(); return false;">here</a> if you want to clear the local storage.<br>
 		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.<br>
-		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO()" href="#">here</a> to disable.<br></span>
+		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO(); return false;" href="#">here</a> to disable.<br></span>
 		</p>
 
 	</div>
@@ -119,7 +132,10 @@ h2 {
 
 <script>
 
+// ---------- onle-line utils ----------
 function eId(id){ return document.getElementById(id) || document.createElement('div') }
+function reload(){ window.location.reload(false) } // (false, aka don't fetch again, because the page didn't change)
+
 
 // ---------- buttons ----------
 
@@ -288,7 +304,36 @@ function group(data){
 		}, {}));
 }
 
-// ---------- localStorage ----------
+// ---------- settings ----------
+
+let KEY_PREFIX_SETTING = "setting_"
+
+// configured settings: name => lambda to apply it
+let settings = {
+	"hideText": v => eId("details").open = v !== "false"
+}
+
+// changes and saves a setting to a value
+function changeSetting(id, v){
+	settings[id](""+v);
+	localStorage.setItem(KEY_PREFIX_SETTING + id, v);
+}
+
+// loads all settings from storage
+function loadSettings(){
+	for(setting in settings){
+		settings[setting](localStorage.getItem(KEY_PREFIX_SETTING + setting));
+	}
+}
+
+// ---------- changelog ----------
+
+// toggles the changelog visibility
+function toggleChangelog(){
+	eId('changelog').hidden = !eId('changelog').hidden
+}
+
+// ---------- prefix ----------
 
 let KEY_PREF = "prefix"
 
@@ -300,6 +345,16 @@ function savePrefix(){
 // loads the input prefix from storage
 function restorePrefix(){
 	setNumber(prefix=localStorage.getItem(KEY_PREF))
+}
+
+// ---------- clear preferences ----------
+
+// clears the localStorage, notifies the user and reloads the page
+function clearLocalStorage(){
+	if(confirm("Do you want to clear the localStorage? (saved prefix and toggled-title).\nThe page will refresh.")){
+		localStorage.clear()
+		reload()
+	}
 }
 
 // ---------- arcio ----------
@@ -331,14 +386,8 @@ function loadArcIO(){
 // toggles the arcio availability
 // then reloads the page
 function toggleArcIO(){
-	// set
 	localStorage.setItem(KEY_ARCIO,!isArcIO())
-
-	// reload (false, aka don't fetch again, because the page didn't change)
-	window.location.reload(false)
-
-	// return false to disable <a> links
-	return false
+	reload()
 }
 
 // ---------- initialization ----------
@@ -348,6 +397,7 @@ window.onload = function(){
 	try{ updateStatus()  }catch(e){console.log(e)}
 	try{ loadCountries() }catch(e){console.log(e)}
 	try{ loadArcIO()     }catch(e){console.log(e)}
+	try{ loadSettings()  }catch(e){console.log(e)}
 }
 
 </script>
