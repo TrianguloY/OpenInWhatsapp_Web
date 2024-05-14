@@ -14,66 +14,62 @@
 <script data-goatcounter="https://trianguloy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <style>
-h2 {
-	color: rgb(144, 182, 73);
-	display: inline-block;
-	vertical-align: middle;
-}
 summary {
 	cursor:pointer;
 }
 
-.mycard {
-	margin-top: 50px;
-	width: 90%;
-	margin-bottom: 50px;
+.fixPadding {
+	position:absolute;
+	bottom:0;
+	top:0;
+	left:0;
+	right:0;
 }
 
-.center {
-	display: flex;
-	justify-content: center;
-}
-
-.border {
-	margin-top: 5px;
-}
-
-.box {
+body {
 	display: flex;
 	flex-flow: column;
-	height: 100%;
 	justify-content: space-between;
 	gap: 50px;
+	text-align: center;
+	width: unset;
+}
+body * {
+	margin: 0 auto 0 auto !important;
 }
 
-.autoWidth {
-	width: auto;
-	max-width: 100%;
+p {
+	padding: 10px 0 10px 0;
+}
+
+body:has(details:not([open])) .extraDetails {
+	display: none;
 }
 
 </style>
 </head>
 
-<body class="center">
-<div class="mycard mdl-card mdl-shadow--2dp"><center class="box mdl-card__supporting-text">
-	<div>
-		<details id="details" ontoggle="changeSetting('hideText', this.open)" open>
-			<summary><h2>Click to chat</h2></summary>
+<body class="fixPadding" style="padding:0 10px 0 10px">
+	<p class="extraDetails">
+		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
+		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
+		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
+	</p>
+	
+	<div><!--padding--></div>
+
+	<div style="width:100%">
+		<details id="details" ontoggle="try{ changeSetting('hideText', this.open)}catch(e){}" open>
+			<summary><h2 style="color:rgb(144,182,73);display:inline-block;vertical-align:middle">Click to chat</h2></summary>
 
 			<p>
-			From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
-			No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
-			Will probably update it if enough interest (or you can suggest changes, GitHub link below).
-
-			<br>
-			<br>
 			This web uses WhatsApp public API to open a chat with any number you enter (you and that number).<br>
 			Usage: Insert the number and the <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region">prefix</a> with no extra characters, only numbers 0–9.<span id="countriesTxt" hidden> You can also choose from the list.</span> More info <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">here</a>.<br>
 			Example: for +44 (UK) 123 456 7890 write 44 1234567890
 			</p>
 		</details>
 
-		<select id="countries" class="mdl-textfield__input autoWidth" onchange="changeCountry()" hidden>
+		<select id="countries" class="mdl-textfield__input autoWidth" style="width:auto;max-width:100%" onchange="changeCountry()" hidden>
 			<option value="" disabled>List of prefixes</option>
 			<optgroup label="Sorted By Prefix"></optgroup>
 			<optgroup label="Sorted By Country"></optgroup>
@@ -96,22 +92,23 @@ summary {
 		<button id="share" onclick="share()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored border">Share link</button>
 
 	</div>
-	<div>
 	
-		<p>
+	<p>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
 		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO(); return false;" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
-		</p>
-		
-	</div>
-	<div>
+	</p>
+	
+	<div class="extraDetails">
 
 		<p>
 
 		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
-		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.7</a>). This page is not affiliated with WhatsApp Inc.<br>
+		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.8</a>). This page is not affiliated with WhatsApp Inc.<br>
 		<pre id="changelog" style="white-space: pre-wrap;" hidden>
 Changelog:
+
+V 1.8
+- Simplify layout
 
 V 1.7
 - Press the title to toggle the main text.
@@ -127,8 +124,6 @@ V 1.7
 		</p>
 
 	</div>
-
-</center></div>
 
 <script>
 
