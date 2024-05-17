@@ -52,7 +52,7 @@ body:has(details:not([open])) .extraDetails {
 <body class="fixPadding" style="padding:0 10px 0 10px">
 	<p class="extraDetails">
 		From the developer that brought to you the <a href="https://play.google.com/store/apps/details?id=com.trianguloy.openInWhatsapp" target="_blank">Click to chat app</a> (originally known as Open in WhatsApp) here comes the web version, as simple as possible.<br>
-		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics<span id="arcioTxt" hidden>, and <a href="https://arc.io/about/" target="_blank">arc.io</a> for no-ads monetization</span>).<br>
+		No cookies, no ads, not even options, but only the <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat">click to chat</a> feature! (although it does use <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> for privacy-friendly web analytics).<br>
 		Will probably update it if enough interest (or you can suggest changes, GitHub link below).
 	</p>
 	
@@ -95,7 +95,6 @@ body:has(details:not([open])) .extraDetails {
 	
 	<p>
 		If you like this page consider <a href="https://triangularapps.blogspot.com/p/support.html">donating</a>.
-		<span id="arcioDisabled" hidden><br>And/Or press <a onclick="toggleArcIO(); return false;" href="#">here</a> to enable the <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative.</span>
 	</p>
 	
 	<div class="extraDetails">
@@ -103,9 +102,12 @@ body:has(details:not([open])) .extraDetails {
 		<p>
 
 		<!-- This code is licensed under a creative commons license. You can't remove this part. -->
-		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.8</a>). This page is not affiliated with WhatsApp Inc.<br>
+		Made by TrianguloY. (<a href="#" onclick="toggleChangelog(); return false;">V 1.8.1</a>). This page is not affiliated with WhatsApp Inc.<br>
 		<pre id="changelog" style="white-space: pre-wrap;" hidden>
 Changelog:
+
+V 1.8.1
+- Removed arc.io
 
 V 1.8
 - Simplify layout
@@ -119,8 +121,7 @@ V 1.7
 		The <a href="https://github.com/TrianguloY/OpenInWhatsapp_Web" target="_blank">source code</a> is available on GitHub.<br>
 		- Uses the <a href="https://getmdl.io/index.html" target="_blank">Material Design Lite</a> library for a cleaner look.<br>
 		- The prefix and toggled-title are kept local-only on your browser using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.<br>Press <a href="#" onclick="clearLocalStorage(); return false;">here</a> if you want to clear the local storage.<br>
-		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.<br>
-		<span id="arcioEnabled" hidden>- And <a href="https://arc.io/about/" target="_blank">arc.io</a> service for a no-ads monetization alternative. Press <a onclick="toggleArcIO(); return false;" href="#">here</a> to disable.<br></span>
+		- Uses also <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a> to check how popular this page is.
 		</p>
 
 	</div>
@@ -352,46 +353,12 @@ function clearLocalStorage(){
 	}
 }
 
-// ---------- arcio ----------
-
-let KEY_ARCIO = "arcio"
-
-// true if arcio is enabled
-function isArcIO(){
-	let saved = localStorage.getItem(KEY_ARCIO)
-	return saved !== null ? saved == "true" : true
-}
-
-// inits the arcio related data
-function loadArcIO(){
-
-	// toggle texts visibility
-	eId('arcioEnabled').hidden = !isArcIO();
-	eId('arcioTxt').hidden = !isArcIO();
-	eId('arcioDisabled').hidden = isArcIO();
-
-	// enable script if required
-	if(!isArcIO()) return;
-	let arcio = document.createElement('script')
-	arcio.setAttribute('src','https://arc.io/widget.js#JnX5qiNK')
-	arcio.setAttribute('aync',true)
-	document.head.appendChild(arcio)
-}
-
-// toggles the arcio availability
-// then reloads the page
-function toggleArcIO(){
-	localStorage.setItem(KEY_ARCIO,!isArcIO())
-	reload()
-}
-
 // ---------- initialization ----------
 
 //window.onload = function(){
 try{ restorePrefix() }catch(e){console.log(e)}
 try{ updateStatus()  }catch(e){console.log(e)}
 try{ loadCountries() }catch(e){console.log(e)}
-try{ loadArcIO()     }catch(e){console.log(e)}
 try{ loadSettings()  }catch(e){console.log(e)}
 //}
 
